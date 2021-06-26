@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Findaraunt</string>
+
+    <string name="location_prompt">Choose a location</string>
+
+    <string-array name="location_arrays">
+        <item>Attavar</item>
+        <item>Bejai</item>
+        <item>Chilimbi</item>
+        <item>Falnir</item>
+        <item>Kadri</item>
+        <item>Mannagudda</item>
+        <item>Surathkal</item>
+        <item>Urwa</item>
+
+    </string-array>
 </resources>

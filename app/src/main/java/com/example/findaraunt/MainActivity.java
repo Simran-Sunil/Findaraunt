@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(MainActivity.this,HomePage.class); //Intent is used to switch from one activity to another.
+                Intent i = new Intent(MainActivity.this,LoginPage.class); //Intent is used to switch from one activity to another.
                 startActivity(i); //invoke the SecondActivity
                 finish(); //current activity will be finished.
             }

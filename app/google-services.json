@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "99489620066",
+    "project_id": "findaraunt",
+    "storage_bucket": "findaraunt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99489620066:android:6b76a7eb99de5cff27b13b",
+        "android_client_info": {
+          "package_name": "com.example.findaraunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99489620066-kdv71h9t4cat09ue39jlt7q13eof2dni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD03rZILk36gMEOKtTBlLi5oHZl0wp0F3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99489620066-kdv71h9t4cat09ue39jlt7q13eof2dni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
