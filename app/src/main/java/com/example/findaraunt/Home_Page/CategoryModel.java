@@ -1,4 +1,4 @@
-package com.example.findaraunt;
+package com.example.findaraunt.Home_Page;
 
 class CategoryModel {
     Integer categoryLogo;

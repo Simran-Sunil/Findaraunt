@@ -1,4 +1,4 @@
-package com.example.findaraunt;
+package com.example.findaraunt.Home_Page;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.findaraunt.R;
+
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 public class HomePage extends AppCompatActivity {

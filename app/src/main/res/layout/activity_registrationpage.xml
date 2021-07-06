@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backdrop"
-    tools:context=".RegistrationPage">
+    tools:context=".Registration_Page.RegistrationPage">
 
     <TextView
         android:id="@+id/textView2"
@@ -84,6 +84,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/inputEmail"
         app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+
 
     <Spinner
         android:id="@+id/inputLocation"
