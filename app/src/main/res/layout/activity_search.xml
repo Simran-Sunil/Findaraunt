@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/searchbox"
+            android:layout_width="316dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:paddingLeft="20dp"
+            android:hint="Search restaurants..."
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:drawableTint="@android:color/black"
+            android:drawablePadding="@dimen/browser_actions_context_menu_min_padding"
+            android:inputType="textAutoComplete"
+            android:background="@drawable/search_bg"
+            />
+
+        <ListView
+            android:id="@+id/searchLV"
+            android:layout_width="324dp"
+            android:layout_height="1300dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:divider="#fff"
+            android:dividerPadding="10dp"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+</ScrollView>

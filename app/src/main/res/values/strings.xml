@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Findaraunt</string>
+    <string name="app_name"></string>
 
     <string name="location_prompt">Choose a location</string>
 
@@ -14,4 +14,9 @@
         <item>Urwa</item>
 
     </string-array>
+
+<!--    Navigation drawer part-->
+    <string name="navigation_open">Open Navigation drawer</string>
+    <string name="navigation_close">Close Navigation drawer</string>
+
 </resources>

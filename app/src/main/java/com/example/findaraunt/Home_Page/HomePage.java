@@ -1,23 +1,31 @@
 package com.example.findaraunt.Home_Page;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.annotation.NonNull;
+
+import com.example.findaraunt.LoginPage;
 import com.example.findaraunt.R;
 
+import com.example.findaraunt.RegisterRestaurants;
+import com.example.findaraunt.SearchPage.SearchBar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,6 +45,11 @@ public class HomePage extends AppCompatActivity {
     ListView recommendations;
     ArrayList<RecommendationModel> recommendationModelArrayList;
     FirebaseFirestore db;
+
+    // Drawer initializations
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
 
     @Override
@@ -68,6 +81,19 @@ public class HomePage extends AppCompatActivity {
         // Set MainAdapter to RecyclerView
         recyclerView.setAdapter(mainAdapter);
 
+        //-----------------------------------------------------------------//
+        // on clicking search tab, it shud move to search page
+        EditText searchView = findViewById(R.id.searchView);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("SearchBar Clicked");
+
+                Intent searchActivity = new Intent(getApplicationContext(), SearchBar.class);
+                startActivity(searchActivity);
+            }
+        });
+
 //***********************************************************************************//
         // Recommendation Backend
         recommendations = findViewById(R.id.listview);
@@ -76,10 +102,17 @@ public class HomePage extends AppCompatActivity {
         // here we are calling a method to load data in our list view.
         loadDatainListview();
 
-//        mListView = findViewById(R.id.listview);
-//        MyAdapter adapter = new MyAdapter();
-//        mListView.setAdapter(adapter);
+//***********************************************************************************//
+        //Drawer code
+        drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView = findViewById(R.id.navigationview);
+        toolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_open,R.string.navigation_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
     private void loadDatainListview() {
@@ -122,6 +155,23 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
+    // Code for navigating through pages in Sidemenu Bar
+    public void goToHomePage(View view){
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
+    }
+
+    public void goToRegResPage(View view){
+        Intent intent = new Intent(this, RegisterRestaurants.class);
+        startActivity(intent);
+    }
+
+    public void goToLoginPage(View view){
+        Intent intent = new Intent(this, LoginPage.class);
+        startActivity(intent);
+    }
+
 }
 
 
