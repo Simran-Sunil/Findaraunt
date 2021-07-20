@@ -17,6 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 //import com.example.findaraunt.Category_List.CategoryActivity;
+//import com.example.findaraunt.Category_List.CategoryActivity;
+import com.example.findaraunt.Category_List.CategoryActivity;
 import com.example.findaraunt.R;
 
 import java.util.ArrayList;
@@ -33,31 +35,31 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         this.categoryModels = categoryModels;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Create View
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_item, parent,false);
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: called.");
         // set logo to ImageView
         holder.imageView.setImageResource(categoryModels.get(position).getCategoryLogo());
         // set Name to TextView
         holder.textView.setText(categoryModels.get(position).getCategoryName());
-//        holder.parentLayout.setOnClickListener((view -> {
-//            Log.d(TAG," onClick: clicked on: "+ categoryModels.get(position).getCategoryName());
-//            Toast.makeText(context, categoryModels.get(position).getCategoryName(),Toast.LENGTH_SHORT).show();
-//
-//            Intent intent = new Intent(context, CategoryActivity.class);
-//            intent.putExtra("imageUrl", categoryModels.get(position).getCategoryLogo());
-//            intent.putExtra("category_name", categoryModels.get(position).getCategoryName());
-//            context.startActivity(intent);
-//    }));
+        holder.parentLayout.setOnClickListener((view -> {
+            Log.d(TAG," onClick: clicked on: "+ categoryModels.get(position).getCategoryName());
+            Toast.makeText(context, categoryModels.get(position).getCategoryName(),Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(context, CategoryActivity.class);
+            intent.putExtra("category_name", categoryModels.get(position).getCategoryName());
+            context.startActivity(intent);
+    }));
     }
 
 @Override
@@ -69,14 +71,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         //Initialize variable
         ImageView imageView;
         TextView textView;
-       // RelativeLayout parentLayout;
+        RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.image_view);
             textView = itemView.findViewById(R.id.text_view);
-           // parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
 }

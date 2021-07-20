@@ -8,19 +8,19 @@ public class CategoryDisplayModel {
     private String rating;
     private String address;
     private String phone;
+    private String timing;
 
-    public CategoryDisplayModel() {
-        // empty constructor required for firebase.
-    }
+    public CategoryDisplayModel(){};
 
     // constructor for our object class.
-    public CategoryDisplayModel(String name, String imgUrl, String category, String rating, String address, String phone) {
+    public CategoryDisplayModel(String name, String imgUrl, String category, String rating, String address, String phone, String timing) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.category = category;
         this.rating = rating;
         this.address = address;
         this.phone = phone;
+        this.timing = timing;
     }
 
     // getter and setter methods
@@ -65,4 +65,10 @@ public class CategoryDisplayModel {
     }
 
     public void setPhone(String phone) { this.phone = phone; }
+
+    public String getTiming() {
+        return timing;
+    }
+
+    public void setTiming(String timing) { this.timing = timing; }
 }

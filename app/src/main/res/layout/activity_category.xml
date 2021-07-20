@@ -8,17 +8,24 @@
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/catToolbar"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        app:title="Chinese"
         android:background="@android:color/black">
+
+        <TextView
+            android:id="@+id/catName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chinese"
+            android:textColor="@android:color/white"
+            android:paddingLeft="20dp"
+            android:textSize="22dp"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/categoryLV"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRV"
         android:layout_width="324dp"
         android:layout_height="1300dp"
         android:layout_marginLeft="15dp"

@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.findaraunt.Category_List.CategoryAdapter;
+import com.example.findaraunt.Home_Page.HomePage;
+import com.example.findaraunt.Home_Page.RecommendationAdapter;
 import com.example.findaraunt.Home_Page.RecommendationModel;
 import com.example.findaraunt.R;
 import com.example.findaraunt.Category_List.CategoryDisplayModel;
@@ -28,11 +35,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class SearchBar extends AppCompatActivity {
 
     private static final String TAG = "SearchBar Activity";
-    private CategoryAdapter adapter;
+    CategoryAdapter adapter;
     FirebaseFirestore db;
-
-    ListView searchLV;
+    RecyclerView searchRV;
     ArrayList<CategoryDisplayModel> categoryModelsArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -40,10 +47,18 @@ public class SearchBar extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // Displays lisview of restaurants
-        searchLV = findViewById(R.id.searchLV);
+        searchRV = findViewById(R.id.searchRV);
         categoryModelsArrayList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
-        loadDatainSearchListView();
+        searchRV.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                SearchBar.this, LinearLayoutManager.VERTICAL, false
+        );
+        searchRV.setLayoutManager(linearLayoutManager);
+
+        adapter = new CategoryAdapter(this,categoryModelsArrayList);
+        searchRV.setAdapter(adapter);
+        loadDatainSearchRV();
 
         //Search backend
         EditText searchBox = findViewById(R.id.searchbox);
@@ -60,63 +75,46 @@ public class SearchBar extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.d(TAG, "SearchBox has changed to: " + editable.toString());
                 if(editable.toString().isEmpty()){
-                    db.collection("Restaurants").get()
-                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    if (!queryDocumentSnapshots.isEmpty()) {
-                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                        for (DocumentSnapshot d : list) {
-                                            CategoryDisplayModel categoryDisplayModel = d.toObject(CategoryDisplayModel.class);
-                                            categoryModelsArrayList.add(categoryDisplayModel);
-                                        }
-                                        adapter = new CategoryAdapter(SearchBar.this, categoryModelsArrayList);
-                                        searchLV.setAdapter(adapter);
-                                    } else {
-                                        Toast.makeText(SearchBar.this, "No data found in search Database", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SearchBar.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else {
-                    db.collection("Restaurants").whereEqualTo("name", editable.toString()).get()
-                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    if (!queryDocumentSnapshots.isEmpty()) {
-                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                        for (DocumentSnapshot d : list) {
-                                            CategoryDisplayModel categoryDisplayModel = d.toObject(CategoryDisplayModel.class);
-                                            categoryModelsArrayList.add(categoryDisplayModel);
-                                        }
-                                        //adapter.notifyDataSetChanged();
-                                        adapter = new CategoryAdapter(SearchBar.this, categoryModelsArrayList);
-                                        adapter.notifyDataSetChanged();
-                                    } else {
-                                        Toast.makeText(SearchBar.this, "No data found in Search DB", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SearchBar.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
-                        }
-
-                    });
+                    categoryModelsArrayList.clear();
+                    loadDatainSearchRV();
+                }else{
+                    searchRestaurants(editable.toString());
                 }
         }
     });
     }
 
+    private void searchRestaurants(String type){
+        if(!type.isEmpty()){
+            db.collection("Restaurants").whereEqualTo("name", type.substring(0,1)+type.substring(1)).get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                categoryModelsArrayList.clear();
+                                adapter.notifyDataSetChanged();
+                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot d : list) {
+                                    CategoryDisplayModel categoryDisplayModel = d.toObject(CategoryDisplayModel.class);
+                                    categoryModelsArrayList.add(categoryDisplayModel);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SearchBar.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
+                }
 
-    private void loadDatainSearchListView(){
+            });
+        }
+    }
+
+
+
+    private void loadDatainSearchRV(){
         db.collection("Restaurants").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -127,8 +125,7 @@ public class SearchBar extends AppCompatActivity {
                                 CategoryDisplayModel categoryDisplayModel = d.toObject(CategoryDisplayModel.class);
                                 categoryModelsArrayList.add(categoryDisplayModel);
                             }
-                            adapter = new CategoryAdapter(SearchBar.this, categoryModelsArrayList);
-                            searchLV.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(SearchBar.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                         }

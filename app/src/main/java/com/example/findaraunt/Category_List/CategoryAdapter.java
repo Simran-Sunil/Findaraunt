@@ -1,63 +1,85 @@
 package com.example.findaraunt.Category_List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.findaraunt.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends ArrayAdapter<CategoryDisplayModel> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+
+    private static final String TAG = "CategoryAdapter";
+
+    ArrayList<CategoryDisplayModel> categoryDisplayModels;
+    Context context;
+
     // constructor for our list view adapter.
-    public CategoryAdapter(@NonNull Context context, ArrayList<CategoryDisplayModel> categoryDisplayModelArrayList) {
-        super(context, 0, categoryDisplayModelArrayList);
+    public CategoryAdapter(Context context, ArrayList<CategoryDisplayModel> categoryDisplayModels) {
+        this.context = context;
+        this.categoryDisplayModels = categoryDisplayModels;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        // below line is use to inflate the layout for our item of list view.
-        View listitemView = convertView;
-        if (listitemView == null) {
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
+    public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.category_card, parent, false));
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: called.");
+        // set logo to ImageView
+        Picasso.get().load(categoryDisplayModels.get(position).getImgUrl()).into(holder.imgUrl);
+        // set Name to TextView
+        holder.name.setText(categoryDisplayModels.get(position).getName());
+        holder.address.setText(categoryDisplayModels.get(position).getAddress());
+        holder.rating.setText(categoryDisplayModels.get(position).getRating());
+        holder.parentLayout.setOnClickListener((view -> {
+        Log.d(TAG," onClick: clicked on: "+ categoryDisplayModels.get(position).getName());
+        Toast.makeText(context, categoryDisplayModels.get(position).getName(),Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(context, CategoryDisplayScreen.class);
+        intent.putExtra("restaurant_name", categoryDisplayModels.get(position).getName());
+        context.startActivity(intent);
+        }));
+    }
+
+    @Override
+    public int getItemCount() {
+        return categoryDisplayModels.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        //Initialize variable
+        ImageView imgUrl;
+        TextView name;
+        TextView rating;
+        TextView address;
+        CardView parentLayout;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            imgUrl = itemView.findViewById(R.id.catImg1);
+            name = itemView.findViewById(R.id.catTxt1);
+            address = itemView.findViewById(R.id.catTxt2);
+            rating = itemView.findViewById(R.id.catTxt3);
+            parentLayout = itemView.findViewById(R.id.parentId);
         }
-
-        // after inflating an item of listview item we are getting data from array list inside our modal class.
-        CategoryDisplayModel categoryDisplayModel = getItem(position);
-
-        // initializing our UI components of list view item.
-        TextView name = listitemView.findViewById(R.id.catTxt1);
-        ImageView image = listitemView.findViewById(R.id.catImg1);
-        TextView address = listitemView.findViewById(R.id.catTxt2);
-        TextView rating = listitemView.findViewById(R.id.catTxt3);
-
-
-        // after initializing our items we are setting data to our view. below line is use to set data to our text view.
-        name.setText(categoryDisplayModel.getName());
-        address.setText(categoryDisplayModel.getAddress());
-        rating.setText(categoryDisplayModel.getRating());
-        // in below line we are using Picasso to load image from URL in our Image VIew.
-        Picasso.get().load(categoryDisplayModel.getImgUrl()).into(image);
-
-        // below line is use to add item click listener for our item of list view.
-        listitemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // on the item click on our list view we are displaying a toast message.
-                Toast.makeText(getContext(), "Item clicked is : " + categoryDisplayModel.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        return listitemView;
     }
 }
 

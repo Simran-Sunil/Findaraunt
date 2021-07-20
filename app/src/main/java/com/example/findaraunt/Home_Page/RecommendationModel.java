@@ -5,17 +5,17 @@ public class RecommendationModel {
     private String name;
     private String imgUrl;
     private String hcategory;
-
-    public RecommendationModel() {
-        // empty constructor required for firebase.
-    }
+    private String rRating;
 
     // constructor for our object class.
-    public RecommendationModel(String name, String imgUrl, String hcategory) {
+    public RecommendationModel(String name, String imgUrl, String hcategory, String rRating) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.hcategory = hcategory;
+        this.rRating = rRating;
     }
+
+    public RecommendationModel(){};
 
     // getter and setter methods
     public String getName() {
@@ -41,5 +41,9 @@ public class RecommendationModel {
     public void setHcategory(String hcategory) {
         this.hcategory = hcategory;
     }
+
+    public String getrRating(){ return rRating; }
+
+    public void setrRating(String rRating){ this.rRating = rRating; }
 }
 

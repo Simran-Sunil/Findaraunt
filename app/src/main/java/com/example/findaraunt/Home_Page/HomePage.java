@@ -2,14 +2,25 @@ package com.example.findaraunt.Home_Page;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.ListView;
@@ -23,33 +34,46 @@ import com.example.findaraunt.R;
 
 import com.example.findaraunt.RegisterRestaurants;
 import com.example.findaraunt.SearchPage.SearchBar;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     //Initailizing variable
     RecyclerView recyclerView;
 
+    RecyclerView recommendationView;
+    ArrayList<RecommendationModel> recommendationModels;
+    RecommendationAdapter adapter;
+    private FirebaseFirestore db;
+    ProgressBar loadingPB;
+
+    private static final String TAG ="Home Page Drawer";
+
     ArrayList<CategoryModel> categoryModels;
     MainAdapter mainAdapter;
+
 //    private ListView mListView;  // Listview for displaying recommendations in home page.
 
     // Creating a variable for recommendation list view,arraylist and firebase Firestore.
-    ListView recommendations;
-    ArrayList<RecommendationModel> recommendationModelArrayList;
-    FirebaseFirestore db;
+//    ListView recommendations;
+//    ArrayList<RecommendationModel> recommendationModelArrayList;
 
     // Drawer initializations
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
 
 
     @Override
@@ -61,7 +85,7 @@ public class HomePage extends AppCompatActivity {
 
         //Creating Integer array
         Integer[] categoryLogo = {R.drawable.chinese, R.drawable.fastfood, R.drawable.desserts};
-        String[] categoryName = {"Chinese", "FastFood", "Desserts"};
+        String[] categoryName = {"Chinese", "Fast food", "Desserts"};
 
         categoryModels = new ArrayList<>();
         for (int i = 0; i < categoryLogo.length; i++) {
@@ -96,11 +120,28 @@ public class HomePage extends AppCompatActivity {
 
 //***********************************************************************************//
         // Recommendation Backend
-        recommendations = findViewById(R.id.listview);
-        recommendationModelArrayList = new ArrayList<>();
+        recommendationView = findViewById(R.id.recommendation_view);
+        loadingPB = findViewById(R.id.idProgressBar);
         db = FirebaseFirestore.getInstance();
-        // here we are calling a method to load data in our list view.
-        loadDatainListview();
+        recommendationModels = new ArrayList<>();
+        recommendationView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                HomePage.this, LinearLayoutManager.VERTICAL, false
+        );
+        recommendationView.setLayoutManager(linearLayoutManager);
+
+        adapter = new RecommendationAdapter(this,recommendationModels);
+        recommendationView.setAdapter(adapter);
+        loadDatainRecyclerview();
+
+
+
+
+//        recommendations = findViewById(R.id.listview);
+//        recommendationModelArrayList = new ArrayList<>();
+//        db = FirebaseFirestore.getInstance();
+//        // here we are calling a method to load data in our list view.
+//        loadDatainListview();
 
 //***********************************************************************************//
         //Drawer code
@@ -113,9 +154,71 @@ public class HomePage extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
-    private void loadDatainListview() {
+    // Code for navigating through pages in Sidemenu Bar
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        Log.d(TAG, "This is Drawer code");
+        int id = menuItem.getItemId();
+
+        if(id == R.id.home_menu){
+            Intent intent1 = new Intent(this, HomePage.class);
+            startActivity(intent1);
+        }else if(id == R.id.profile_menu){
+            Toast.makeText(this, "Profile button clicked", Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.register_menu){
+            Intent intent3 = new Intent(this, RegisterRestaurants.class);
+            startActivity(intent3);
+        }else if(id == R.id.login_menu){
+            Intent intent4 = new Intent(this, LoginPage.class);
+            startActivity(intent4);
+        }else if(id == R.id.logout_menu){
+            Toast.makeText(this, "Logout button clicked", Toast.LENGTH_SHORT).show();
+        }
+        drawerLayout = findViewById(R.id.drawerlayout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+
+
+//        switch (id){
+//
+//            case R.id.home_menu:
+//                Intent intent1 = new Intent(this, HomePage.class);
+//                startActivity(intent1);
+//                break;
+//
+//            case R.id.profile_menu:
+//                Toast.makeText(this, "Profile button clicked", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.register_menu:
+//                Intent intent3 = new Intent(this, RegisterRestaurants.class);
+//                startActivity(intent3);
+//                break;
+//
+//            case R.id.login_menu:
+//                Intent intent4 = new Intent(this, LoginPage.class);
+//                startActivity(intent4);
+//                break;
+//
+//            case R.id.logout_menu:
+//                Toast.makeText(this, "Logout button clicked", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            default:
+//                return true;
+//        }
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//        return true;
+    }
+
+
+    private void loadDatainRecyclerview() {
         db.collection("Recommendations").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -126,6 +229,7 @@ public class HomePage extends AppCompatActivity {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             // if the snapshot is not empty we are hiding
                             // our progress bar and adding our data in a list.
+                            loadingPB.setVisibility(View.GONE);
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for (DocumentSnapshot d : list) {
                                 // after getting this list we are passing
@@ -133,14 +237,9 @@ public class HomePage extends AppCompatActivity {
                                 RecommendationModel recommendationModel = d.toObject(RecommendationModel.class);
                                 // after getting data from Firebase we are
                                 // storing that data in our array list
-                                recommendationModelArrayList.add(recommendationModel);
+                                recommendationModels.add(recommendationModel);
                             }
-                            // after that we are passing our array list to our adapter class.
-                            RecommendationAdapter adapter = new RecommendationAdapter(HomePage.this, recommendationModelArrayList);
-
-                            // after passing this array list to our adapter
-                            // class we are setting our adapter to our list view.
-                            recommendations.setAdapter(adapter);
+                           adapter.notifyDataSetChanged();
                         } else {
                             // if the snapshot is empty we are displaying a toast message.
                             Toast.makeText(HomePage.this, "No data found in Database", Toast.LENGTH_SHORT).show();
@@ -155,24 +254,11 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-
-    // Code for navigating through pages in Sidemenu Bar
-    public void goToHomePage(View view){
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-    }
-
-    public void goToRegResPage(View view){
-        Intent intent = new Intent(this, RegisterRestaurants.class);
-        startActivity(intent);
-    }
-
-    public void goToLoginPage(View view){
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
-    }
-
 }
+
+
+
+
 
 
 

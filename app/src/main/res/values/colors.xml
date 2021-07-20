@@ -14,4 +14,7 @@
 
     <color name="red">#ea2a22</color>
     <color name="blackish_grey">#161616</color>
+    <color name="orange">#FFA500</color>
+    <color name="greyish_black">#0c0c0c</color>
+    <color name="green">#59981A</color>
 </resources>

@@ -27,8 +27,8 @@
             android:background="@drawable/search_bg"
             />
 
-        <ListView
-            android:id="@+id/searchLV"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRV"
             android:layout_width="324dp"
             android:layout_height="1300dp"
             android:layout_marginLeft="15dp"
