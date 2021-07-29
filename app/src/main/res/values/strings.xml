@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Findaraunt</string>
 
     <string name="location_prompt">Choose a location</string>
 
     <string-array name="location_arrays">
+        <item>Choose a location</item>
         <item>Attavar</item>
         <item>Bejai</item>
         <item>Chilimbi</item>
@@ -15,8 +16,17 @@
 
     </string-array>
 
-<!--    Navigation drawer part-->
+    <string name="category_prompt">Choose a category</string>
+
+    <string-array name="category_arrays">
+        <item>Chinese</item>
+        <item>FastFood</item>
+        <item>Desserts</item>
+    </string-array>
+
+    <!--    Navigation drawer part-->
     <string name="navigation_open">Open Navigation drawer</string>
     <string name="navigation_close">Close Navigation drawer</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

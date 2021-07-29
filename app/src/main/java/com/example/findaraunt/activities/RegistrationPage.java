@@ -1,4 +1,4 @@
-package com.example.findaraunt.Registration_Page;
+package com.example.findaraunt.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,15 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.findaraunt.Home_Page.HomePage;
-import com.example.findaraunt.LoginPage;
 import com.example.findaraunt.R;
+import com.example.findaraunt.models.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,11 +46,24 @@ public class RegistrationPage extends AppCompatActivity {
         username = findViewById(R.id.inputUsername);
         email = findViewById(R.id.inputEmail);
         password = findViewById(R.id.inputPassword);
+
         spinner = (Spinner)findViewById(R.id.inputLocation);
+        String[] LocationArray = {"Choose a location", "Attavar", "Bejai", "Chilimbi", "Falnir", "Kadri", "Mannagudda","Surathkal","Urwa"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.inputLocation, LocationArray);
+        spinner.setAdapter(adapter);
+
         Register = findViewById(R.id.btnRegister);
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        TextView btn = findViewById(R.id.alreadyHaveAccount);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistrationPage.this, LoginPage.class));
+            }
+        });
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +71,15 @@ public class RegistrationPage extends AppCompatActivity {
                 String txt_username = username.getText().toString().trim();
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
-                String txt_location = spinner.getSelectedItem().toString();
+                String txt_location = String.valueOf(spinner.getSelectedItem());
+
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText( RegistrationPage.this,"Empty credentials", Toast.LENGTH_SHORT).show();
                 }else if(txt_password.length()<6){
                     Toast.makeText(RegistrationPage.this,"Password too short",Toast.LENGTH_SHORT).show();
                 }else {
                     registerUser(txt_email, txt_password);
-                    
+
                 }
 
                 if(!validateInputs(txt_username,txt_email,txt_password)){
@@ -87,15 +101,10 @@ public class RegistrationPage extends AppCompatActivity {
 
                 }
             }
+
         });
 
-        TextView btn = findViewById(R.id.alreadyHaveAccount);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegistrationPage.this, LoginPage.class));
-            }
-        });
+
     }
 
     // Validating the inputs

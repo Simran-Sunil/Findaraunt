@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:gravity="center">
+    android:background="@android:color/black">
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -16,58 +18,78 @@
         android:textColor="@android:color/white"
         android:textSize="25dp"
         android:gravity="center"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-<LinearLayout
-    android:id="@+id/regLV"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.536"
-    app:layout_constraintStart_toStartOf="parent"
-    android:orientation="horizontal"
-    app:layout_constraintTop_toBottomOf="@+id/textView4">
+        <LinearLayout
+            android:id="@+id/regLV"
+            android:layout_width="wrap_content"
+            android:layout_height="170dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.536"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/circularImageView"
-        android:layout_width="230dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:src="@drawable/bg_default"
-        app:civ_border_color="#FFA500"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#3f51b5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+<!--    <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--        android:id="@+id/circularImageView"-->
+<!--        android:layout_width="230dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        android:src="@drawable/bg_default"-->
+<!--        app:civ_border_color="#FFA500"-->
+<!--        app:civ_border_width="4dp"-->
+<!--        app:civ_shadow="true"-->
+<!--        app:civ_shadow_color="#3f51b5"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.536"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
 
-    <TextView
-        android:id="@+id/cameraBtn"
-        android:layout_width="35dp"
-        android:layout_height="200dp"
-        android:drawableLeft="@drawable/camera"
-        android:drawableTint="@android:color/white"
-        android:paddingTop="30dp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circular_view"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="120dp"
+                android:gravity="center"
+                android:paddingRight="20dp"
+                android:src="@drawable/bg_default"
+                app:civ_border_color="#FFA500"
+                app:civ_border_width="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.536"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"/>
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/cameraBtn"
+                android:layout_width="35dp"
+                android:layout_height="200dp"
+                android:drawableLeft="@drawable/camera"
+                android:drawableTint="@android:color/white"
+                android:paddingTop="20dp"/>
+
+            </LinearLayout>
+
     <EditText
         android:id="@+id/inputName"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:background="@drawable/input_regbg"
         android:drawableLeft="@drawable/home"
-        android:drawableTint="@android:color/white"
         android:drawablePadding="10dp"
+        android:drawableTint="@android:color/white"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="60dp"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
@@ -77,46 +99,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regLV" />
 
-    <Spinner
-        android:id="@+id/inputCategory"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:background="@drawable/input_regbg"
-        android:drawableTint="@android:color/white"
-        android:drawableLeft="@drawable/location"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:entries="@array/location_arrays"
-        android:hint="Category"
-        android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:prompt="@string/location_prompt"
-        android:textColorHint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/inputName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputName"
-        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+        <Spinner
+            android:id="@+id/inputCategory"
+            android:layout_width="300dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="128dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/input_regbg"
+            android:drawableLeft="@drawable/location"
+            android:drawablePadding="10dp"
+            android:drawableTint="@android:color/white"
+            android:ems="10"
+            android:textColor="@android:color/white"
+            android:entries="@array/category_arrays"
+            android:hint="Category"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:prompt="@string/category_prompt"
+            android:textColorHint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/inputName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/inputName"
+            app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
-    <EditText
+        <EditText
         android:id="@+id/inputAddress"
         android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/input_regbg"
         android:drawableLeft="@drawable/location"
         android:drawablePadding="10dp"
         android:ems="10"
+            android:layout_marginLeft="60dp"
+
         android:hint="Address"
         android:drawableTint="@android:color/white"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+            android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/inputCategory"
         app:layout_constraintHorizontal_bias="0.0"
@@ -127,13 +153,15 @@
         android:id="@+id/inputPhone"
         android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/input_regbg"
         android:drawableLeft="@drawable/phone"
         android:drawableTint="@android:color/white"
         android:drawablePadding="10dp"
         android:ems="10"
+        android:layout_marginLeft="60dp"
         android:hint="Phone Number"
+        android:textColor="@android:color/white"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
@@ -145,10 +173,34 @@
         app:layout_constraintTop_toBottomOf="@+id/inputAddress" />
 
     <EditText
+        android:id="@+id/inputTime"
+        android:layout_width="300dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/input_regbg"
+        android:drawableLeft="@drawable/time"
+        android:drawableTint="@android:color/white"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Timings"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/inputPhone"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/inputPhone"
+        app:layout_constraintTop_toBottomOf="@+id/inputPhone" />
+
+    <EditText
         android:id="@+id/inputRating"
         android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp"
         android:background="@drawable/input_regbg"
         android:drawableLeft="@drawable/star"
         android:drawableTint="@android:color/white"
@@ -159,17 +211,19 @@
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/inputPhone"
+        app:layout_constraintEnd_toEndOf="@+id/inputTime"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/inputPhone"
-        app:layout_constraintTop_toBottomOf="@+id/inputPhone" />
+        app:layout_constraintStart_toStartOf="@+id/inputTime"
+        app:layout_constraintTop_toBottomOf="@+id/inputTime" />
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="60dp"
         android:background="@drawable/btn_regbg"
         android:text="Submit"
         android:textColor="@android:color/black"
@@ -178,4 +232,6 @@
         app:layout_constraintStart_toStartOf="@+id/inputRating"
         app:layout_constraintTop_toBottomOf="@+id/inputRating" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</ScrollView>

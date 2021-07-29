@@ -1,4 +1,4 @@
-package com.example.findaraunt.Registration_Page;
+package com.example.findaraunt.models;
 
 // Modal class to save the details in registration page
 public class UserDetails {

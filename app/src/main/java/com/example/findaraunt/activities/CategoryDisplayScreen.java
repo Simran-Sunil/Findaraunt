@@ -1,13 +1,21 @@
-package com.example.findaraunt.Category_List;
+package com.example.findaraunt.activities;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.findaraunt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +35,9 @@ public class CategoryDisplayScreen extends AppCompatActivity {
     private TextView resTiming;
     private ImageView resImage;
     private TextView resCategory;
+
+    private Button btnCall;
+    private Button btnDirection;
 
 
     private static final String TAG = "Category Display Screen";
@@ -78,6 +89,11 @@ public class CategoryDisplayScreen extends AppCompatActivity {
                             resTiming.setText((CharSequence) document.get("timing"));
 
                             Picasso.get().load((String) document.get("imgUrl")).into(resImage);
+
+                            callRestaurant(resPhone.getText().toString());
+                            Log.d(TAG, "The value of phoneno is :"+resPhone.getText().toString());
+
+                            getDirection(resAddress.getText().toString());
                         }
                     }else{
                         Toast.makeText(getApplicationContext(),"No such document", Toast.LENGTH_LONG).show();
@@ -87,4 +103,35 @@ public class CategoryDisplayScreen extends AppCompatActivity {
 
         }
     }
+
+    private void callRestaurant(String phoneno){
+
+        btnCall = findViewById(R.id.btnCall);
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+phoneno));
+                startActivity(callIntent);
+            }
+        });
+    }
+
+    private void getDirection(String address){
+
+        btnDirection = findViewById(R.id.btnDirection);
+
+        btnDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://maps.google.com/maps?daddr="+address;
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
 }

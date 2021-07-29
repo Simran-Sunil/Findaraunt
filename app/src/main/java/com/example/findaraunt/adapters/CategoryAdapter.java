@@ -1,4 +1,4 @@
-package com.example.findaraunt.Category_List;
+package com.example.findaraunt.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.findaraunt.models.CategoryDisplayModel;
+import com.example.findaraunt.activities.CategoryDisplayScreen;
 import com.example.findaraunt.R;
 import com.squareup.picasso.Picasso;
 

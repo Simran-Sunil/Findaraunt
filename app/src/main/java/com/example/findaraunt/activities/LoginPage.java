@@ -1,4 +1,4 @@
-package com.example.findaraunt;
+package com.example.findaraunt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.findaraunt.Home_Page.HomePage;
-import com.example.findaraunt.Registration_Page.RegistrationPage;
+import com.example.findaraunt.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,19 +34,20 @@ public class LoginPage extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        TextView btn = findViewById(R.id.textViewSignUp);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginPage.this, RegistrationPage.class));
+            }
+        });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 loginUser(txt_email,txt_password);
-            }
-        });
-        TextView btn = findViewById(R.id.textViewSignUp);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginPage.this, RegistrationPage.class));
             }
         });
     }

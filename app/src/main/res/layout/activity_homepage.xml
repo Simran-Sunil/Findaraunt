@@ -6,21 +6,10 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:fillViewport="true"
-    tools:context=".Home_Page.HomePage"
+    tools:context=".activities.HomePage"
     android:id="@+id/drawerlayout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:background="@color/blackish_grey"
-        android:layout_height="match_parent"
-        android:id="@+id/navigationview"
-        app:headerLayout="@layout/headerfile"
-        app:menu="@menu/sidemenu"
-        app:itemTextColor="@android:color/darker_gray"
-        app:itemIconTint="@android:color/white"
-        android:layout_gravity="start"/>
 
 
 <ScrollView
@@ -40,6 +29,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:titleTextColor="#FFFFFF"
             app:titleMarginStart="10dp"
+            android:fitsSystemWindows="true"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             tools:ignore="MissingConstraints"/>
@@ -113,4 +103,15 @@
     </LinearLayout>
 
 </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:background="@color/blackish_grey"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationview"
+        app:headerLayout="@layout/headerfile"
+        app:menu="@menu/sidemenu"
+        app:itemTextColor="@android:color/darker_gray"
+        app:itemIconTint="@android:color/white"
+        android:layout_gravity="start"/>
 </androidx.drawerlayout.widget.DrawerLayout>

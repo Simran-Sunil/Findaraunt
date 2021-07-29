@@ -17,9 +17,9 @@
 
     <group android:id="@+id/grp3" android:checkableBehavior="single" >
         <item
-            android:id="@+id/register_menu"
+            android:id="@+id/feedback_menu"
             android:icon="@drawable/edit"
-            android:title="Register Restaurants"/>
+            android:title="Feedback"/>
     </group>
 
 

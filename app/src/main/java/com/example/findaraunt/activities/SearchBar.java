@@ -1,14 +1,9 @@
-package com.example.findaraunt.SearchPage;
+package com.example.findaraunt.activities;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,17 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.findaraunt.Category_List.CategoryAdapter;
-import com.example.findaraunt.Home_Page.HomePage;
-import com.example.findaraunt.Home_Page.RecommendationAdapter;
-import com.example.findaraunt.Home_Page.RecommendationModel;
+import com.example.findaraunt.adapters.CategoryAdapter;
 import com.example.findaraunt.R;
-import com.example.findaraunt.Category_List.CategoryDisplayModel;
+import com.example.findaraunt.models.CategoryDisplayModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class SearchBar extends AppCompatActivity {

@@ -1,10 +1,12 @@
-package com.example.findaraunt;
+package com.example.findaraunt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.os.Bundle;
+
+import com.example.findaraunt.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(MainActivity.this,LoginPage.class); //Intent is used to switch from one activity to another.
+                Intent i = new Intent(MainActivity.this, LoginPage.class); //Intent is used to switch from one activity to another.
                 startActivity(i); //invoke the SecondActivity
                 finish(); //current activity will be finished.
             }

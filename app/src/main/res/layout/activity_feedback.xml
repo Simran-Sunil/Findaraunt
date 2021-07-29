@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@drawable/sidebar_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="120dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Findaraunt"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="100dp"
+        android:textColor="@android:color/black"
+        android:textSize="28dp"
+        />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:text="A good restaurant is what you deserve!"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <EditText
+            android:id="@+id/feedbackET1"
+            android:layout_width="300dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/input_bg"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suggestion"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <EditText
+            android:id="@+id/feedbackET2"
+            android:layout_width="300dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/feedback_bg"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:maxLines="6"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <Button
+            android:id="@+id/fbSubmit"
+            android:layout_width="150dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="120dp"
+            android:background="@drawable/btn_bg"
+            android:text="Submit"
+            android:textColor="@android:color/black"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

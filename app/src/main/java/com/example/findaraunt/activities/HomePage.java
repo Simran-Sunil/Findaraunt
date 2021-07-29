@@ -1,6 +1,7 @@
-package com.example.findaraunt.Home_Page;
+package com.example.findaraunt.activities;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -8,42 +9,32 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 
-import com.example.findaraunt.LoginPage;
+import com.example.findaraunt.adapters.MainAdapter;
+import com.example.findaraunt.adapters.RecommendationAdapter;
+import com.example.findaraunt.models.RecommendationModel;
 import com.example.findaraunt.R;
 
-import com.example.findaraunt.RegisterRestaurants;
-import com.example.findaraunt.SearchPage.SearchBar;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.example.findaraunt.models.CategoryModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,16 +54,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<CategoryModel> categoryModels;
     MainAdapter mainAdapter;
 
-//    private ListView mListView;  // Listview for displaying recommendations in home page.
-
-    // Creating a variable for recommendation list view,arraylist and firebase Firestore.
-//    ListView recommendations;
-//    ArrayList<RecommendationModel> recommendationModelArrayList;
-
     // Drawer initializations
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    ActionBarDrawerToggle toggle;
+    FirebaseAuth auth;
 
 
 
@@ -134,20 +121,14 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         recommendationView.setAdapter(adapter);
         loadDatainRecyclerview();
 
-
-
-
-//        recommendations = findViewById(R.id.listview);
-//        recommendationModelArrayList = new ArrayList<>();
-//        db = FirebaseFirestore.getInstance();
-//        // here we are calling a method to load data in our list view.
-//        loadDatainListview();
-
 //***********************************************************************************//
         //Drawer code
+        auth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationview);
         toolbar = findViewById(R.id.toolbar);
+
+        setNavigationViewListener();
 
         setSupportActionBar(toolbar);
 
@@ -155,68 +136,87 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setNavigationItemSelectedListener(this);
+       // setupDrawerContent(navigationView);
 
     }
 
-    // Code for navigating through pages in Sidemenu Bar
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-        Log.d(TAG, "This is Drawer code");
-        int id = menuItem.getItemId();
 
-        if(id == R.id.home_menu){
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    public void  setNavigationViewListener(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationview);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+        int id=item.getItemId();
+
+        if (id == R.id.home_menu) {
             Intent intent1 = new Intent(this, HomePage.class);
             startActivity(intent1);
-        }else if(id == R.id.profile_menu){
+            return true;
+        }
+        else if (id == R.id.profile_menu) {
             Toast.makeText(this, "Profile button clicked", Toast.LENGTH_SHORT).show();
-        }else if(id == R.id.register_menu){
-            Intent intent3 = new Intent(this, RegisterRestaurants.class);
+            return true;
+        }
+        else if (id == R.id.feedback_menu) {
+            Intent intent3 = new Intent(this, FeedBackPage.class);
             startActivity(intent3);
-        }else if(id == R.id.login_menu){
+            return true;
+        }
+        else if (id == R.id.login_menu) {
             Intent intent4 = new Intent(this, LoginPage.class);
             startActivity(intent4);
-        }else if(id == R.id.logout_menu){
-            Toast.makeText(this, "Logout button clicked", Toast.LENGTH_SHORT).show();
+            return true;
         }
-        drawerLayout = findViewById(R.id.drawerlayout);
+        else if (id == R.id.logout_menu) {
+            Intent in = getIntent();
+            String string = in.getStringExtra("message");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Hey there!").
+                    setMessage("You sure, that you want to logout?");
+            builder.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent i = new Intent(getApplicationContext(),
+                                    LoginPage.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+            builder.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+            Toast.makeText(this, "Logout button clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-
-
-//        switch (id){
-//
-//            case R.id.home_menu:
-//                Intent intent1 = new Intent(this, HomePage.class);
-//                startActivity(intent1);
-//                break;
-//
-//            case R.id.profile_menu:
-//                Toast.makeText(this, "Profile button clicked", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case R.id.register_menu:
-//                Intent intent3 = new Intent(this, RegisterRestaurants.class);
-//                startActivity(intent3);
-//                break;
-//
-//            case R.id.login_menu:
-//                Intent intent4 = new Intent(this, LoginPage.class);
-//                startActivity(intent4);
-//                break;
-//
-//            case R.id.logout_menu:
-//                Toast.makeText(this, "Logout button clicked", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            default:
-//                return true;
-//        }
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return true;
+        return false;
     }
-
 
     private void loadDatainRecyclerview() {
         db.collection("Recommendations").get()

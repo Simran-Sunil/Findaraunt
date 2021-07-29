@@ -1,6 +1,6 @@
-package com.example.findaraunt.Home_Page;
+package com.example.findaraunt.models;
 
-class CategoryModel {
+public class CategoryModel {
     Integer categoryLogo;
     String categoryName;
 

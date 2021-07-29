@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backdrop"
-    tools:context=".Registration_Page.RegistrationPage">
+    tools:context=".activities.RegistrationPage">
 
     <TextView
         android:id="@+id/textView2"
@@ -92,7 +92,7 @@
         android:layout_height="51dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="228dp"
-        android:background="@drawable/input_bg"
+        android:background="@drawable/spinner_rect"
         android:drawableLeft="@drawable/location"
         android:drawablePadding="10dp"
         android:ems="10"

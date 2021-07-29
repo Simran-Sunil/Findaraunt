@@ -1,4 +1,4 @@
-package com.example.findaraunt.Home_Page;
+package com.example.findaraunt.models;
 
 public class RecommendationModel {
     // variables for storing our image and name.

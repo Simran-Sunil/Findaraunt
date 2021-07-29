@@ -1,4 +1,4 @@
-package com.example.findaraunt.Category_List;
+package com.example.findaraunt.activities;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.findaraunt.adapters.CategoryAdapter;
+import com.example.findaraunt.models.CategoryDisplayModel;
 import com.example.findaraunt.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,14 +41,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         getIncomingIntent(); // Gets the category name selected in HomePage
 
-//        categoryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(CategoryActivity.this, CategoryDisplayScreen.class);
-//                intent.putExtra("restaurant_name", categoryLV.getItemAtPosition(i).toString());
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void getIncomingIntent(){
@@ -95,17 +89,8 @@ public class CategoryActivity extends AppCompatActivity {
                                     categoryModelArrayList.add(categoryDisplayModel);
                                    // adapter.notifyDataSetChanged();
                                 }
-//                                categoryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                    @Override
-//                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                                        Intent intent = new Intent(CategoryActivity.this, CategoryDisplayScreen.class);
-//                                        intent.putExtra("restaurant_name", categoryLV.getItemAtPosition(i).toString());
-//                                        startActivity(intent);
-//                                    }
-//                                });
                                 adapter.notifyDataSetChanged();
-//                                adapter = new CategoryAdapter(CategoryActivity.this, categoryModelArrayList);
-//                                categoryLV.setAdapter(adapter);
+
                             } else {
                                 Toast.makeText(CategoryActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                             }

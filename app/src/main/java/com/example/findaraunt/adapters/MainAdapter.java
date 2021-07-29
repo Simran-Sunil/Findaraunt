@@ -1,8 +1,7 @@
-package com.example.findaraunt.Home_Page;
+package com.example.findaraunt.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View.OnClickListener;
+
 import android.widget.Toast;
 
-//import com.example.findaraunt.Category_List.CategoryActivity;
-//import com.example.findaraunt.Category_List.CategoryActivity;
-import com.example.findaraunt.Category_List.CategoryActivity;
+//import com.example.findaraunt.activities.CategoryActivity;
+//import com.example.findaraunt.activities.CategoryActivity;
+import com.example.findaraunt.activities.CategoryActivity;
 import com.example.findaraunt.R;
+import com.example.findaraunt.models.CategoryModel;
 
 import java.util.ArrayList;
 

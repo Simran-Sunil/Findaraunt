@@ -1,4 +1,6 @@
-package com.example.findaraunt.Category_List;
+package com.example.findaraunt.models;
+
+import android.widget.Spinner;
 
 public class CategoryDisplayModel {
     // variables for storing our image and name.
