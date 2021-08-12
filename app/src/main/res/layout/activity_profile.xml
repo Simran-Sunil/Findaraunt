@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/regLV"
+            android:layout_width="313dp"
+            android:layout_height="180dp"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.536"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circular_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingRight="20dp"
+                android:src="@drawable/bg_default"
+                app:civ_border_color="#FFA500"
+                app:civ_border_width="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.536"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/cameraBtn"
+                android:layout_width="35dp"
+                android:layout_height="200dp"
+                android:drawableLeft="@drawable/camera"
+                android:drawableTint="@android:color/white"
+                android:paddingTop="20dp" />
+
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Welcome "
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-medium"
+        />
+
+    <TextView
+        android:id="@+id/userNameId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:text="Simran!"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-medium"
+        />
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:text="Email:"
+            android:layout_marginLeft="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <TextView
+            android:id="@+id/emailId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="mail@gmail.com"
+            android:layout_marginLeft="40dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="Phone No:"
+            android:layout_marginLeft="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <TextView
+            android:id="@+id/phonenoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="9686731109"
+            android:layout_marginLeft="40dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="Address:"
+            android:layout_marginLeft="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <TextView
+            android:id="@+id/addressId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Address"
+            android:layout_marginLeft="40dp"
+            android:maxLines="3"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-medium"
+            />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="80dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:background="@drawable/btn_bg"
+            android:text="Update"/>
+
+    </LinearLayout>
+
+</ScrollView>

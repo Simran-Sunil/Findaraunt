@@ -28,10 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegistrationPage extends AppCompatActivity {
 
-    private EditText username;
-    private EditText email;
-    private EditText password;
-    private Spinner spinner;
+    private EditText username, email, password, address, phoneno;
     private Button Register;
 
     private FirebaseAuth auth;
@@ -46,11 +43,13 @@ public class RegistrationPage extends AppCompatActivity {
         username = findViewById(R.id.inputUsername);
         email = findViewById(R.id.inputEmail);
         password = findViewById(R.id.inputPassword);
+        address  = findViewById(R.id.inputAddress);
+        phoneno = findViewById(R.id.inputPhoneno);
 
-        spinner = (Spinner)findViewById(R.id.inputLocation);
-        String[] LocationArray = {"Choose a location", "Attavar", "Bejai", "Chilimbi", "Falnir", "Kadri", "Mannagudda","Surathkal","Urwa"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.inputLocation, LocationArray);
-        spinner.setAdapter(adapter);
+//        spinner = (Spinner)findViewById(R.id.inputLocation);
+//        String[] LocationArray = {"Choose a location", "Attavar", "Bejai", "Chilimbi", "Falnir", "Kadri", "Mannagudda","Surathkal","Urwa"};
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.inputLocation, LocationArray);
+//        spinner.setAdapter(adapter);
 
         Register = findViewById(R.id.btnRegister);
 
@@ -71,7 +70,9 @@ public class RegistrationPage extends AppCompatActivity {
                 String txt_username = username.getText().toString().trim();
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
-                String txt_location = String.valueOf(spinner.getSelectedItem());
+               // String txt_location = String.valueOf(spinner.getSelectedItem());
+                String txt_location = address.getText().toString();
+                String txt_phoneno = phoneno.getText().toString();
 
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText( RegistrationPage.this,"Empty credentials", Toast.LENGTH_SHORT).show();
@@ -82,10 +83,10 @@ public class RegistrationPage extends AppCompatActivity {
 
                 }
 
-                if(!validateInputs(txt_username,txt_email,txt_password)){
+                if(!validateInputs(txt_username,txt_email,txt_password,txt_location,txt_phoneno)){
                     CollectionReference dbUserDetails = db.collection("Users");  // Creating collection inside the firestore having name Users
                     // UserDetails object
-                    UserDetails userDetails = new UserDetails(txt_username,txt_email,txt_password,txt_location);
+                    UserDetails userDetails = new UserDetails(txt_username,txt_email,txt_password,txt_location,txt_phoneno);
                     // Saving the product to firestore
                     dbUserDetails.add(userDetails).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -108,7 +109,7 @@ public class RegistrationPage extends AppCompatActivity {
     }
 
     // Validating the inputs
-    private boolean validateInputs(String txt_username, String txt_email, String txt_password) {
+    private boolean validateInputs(String txt_username, String txt_email, String txt_password, String txt_location, String txt_phoneno) {
         if(txt_username.isEmpty()){
             username.setError("Name required");
             username.requestFocus();
@@ -122,6 +123,16 @@ public class RegistrationPage extends AppCompatActivity {
         if(txt_password.isEmpty()){
             password.setError("Password required");
             password.requestFocus();
+            return true;
+        }
+        if(txt_location.isEmpty()){
+            address.setError("Password required");
+            address.requestFocus();
+            return true;
+        }
+        if(txt_phoneno.isEmpty()){
+            phoneno.setError("Password required");
+            phoneno.requestFocus();
             return true;
         }
         return false;

@@ -12,7 +12,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="sans-serif-light"
         android:text="Register"
         android:textColor="@android:color/white"
@@ -85,45 +85,60 @@
         app:layout_constraintStart_toStartOf="@+id/inputEmail"
         app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
-
-    <Spinner
-        android:id="@+id/inputLocation"
+    <EditText
+        android:id="@+id/inputAddress"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="228dp"
-        android:background="@drawable/spinner_rect"
+        android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/location"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Location"
+        android:hint="Address"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:entries="@array/location_arrays"
-        android:prompt="@string/location_prompt"
         android:textColorHint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/inputPassword"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/inputPassword"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+
+    <EditText
+        android:id="@+id/inputPhoneno"
+        android:layout_width="300dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/phone"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/inputAddress"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/inputAddress"
+        app:layout_constraintTop_toBottomOf="@+id/inputAddress" />
 
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_bg"
         android:text="Register"
-        app:layout_constraintEnd_toEndOf="@+id/inputLocation"
+        app:layout_constraintEnd_toEndOf="@+id/inputPhoneno"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputLocation"
-        app:layout_constraintTop_toBottomOf="@+id/inputLocation" />
+        app:layout_constraintStart_toStartOf="@+id/inputPhoneno"
+        app:layout_constraintTop_toBottomOf="@+id/inputPhoneno" />
 
     <TextView
         android:id="@+id/alreadyHaveAccount"

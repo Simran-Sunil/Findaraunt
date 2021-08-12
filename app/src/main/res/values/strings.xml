@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Findaraunt</string>
+    <string name="app_name"></string>
 
     <string name="location_prompt">Choose a location</string>
 

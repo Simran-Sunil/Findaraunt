@@ -174,7 +174,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             return true;
         }
         else if (id == R.id.profile_menu) {
-            Toast.makeText(this, "Profile button clicked", Toast.LENGTH_SHORT).show();
+            Intent intent2 = new Intent(this, ProfilePage.class);
+            startActivity(intent2);
             return true;
         }
         else if (id == R.id.feedback_menu) {
